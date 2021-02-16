@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta charset = "utf-8">
+         <link rel="stylesheet" href="style_calc.css" type="text/css">
+         <!--<script src="script_calc.js"></script>-->
+    </head>
+    <body class ='container' onload="instruction()">
+        <input id="disp" placeholder ="0">
+        <main class ="btns">
+          <button class="numbers">1</button>
+          <button class="numbers">2</button>
+          <button class="numbers">3</button>
+          <button class="numbers">4</button>
+          <button class="numbers">5</button>
+          <button class="numbers">6</button>
+          <button class="numbers">7</button>
+          <button class="numbers">8</button>
+          <button class="numbers">9</button>
+          <button class="numbers">0</button>
+          <button class="ops" id="dec">.</button>
+          <button class="ops">+</button>
+          <button class="ops">-</button>
+          <button class="ops">*</button>
+          <button class="ops">/</button>
+          <button class="ops">^</button>
+          <button class="ops" id="sqr">&radic;</button>
+          <button class="ops" id="exp">exp</button>
+          <button class="ops" id="sin">sin</button>
+          <button class="ops" id="tan">tan</button>
+          <button class="ops" id="cos">cos</button>
+        </main>
+        <div class = "misc">
+          <button  id="del">del</button>
+          <button  id="AC">AC</button>
+          <button  id="eq">=</button>
+        </div>
+        
+        <script>
+        function instruction(){
+          alert("when evaluating cos,tan,sin and exp, you type the argument to be evaluated after them")
+        }
+
+          let eq = document.querySelector('#eq')
+          let equal = function(){
+            let arg = document.getElementById('disp').value;
+            if (arg.includes('^')) {//result of index
+              if(arg.includes('/')){//result of indeces with division
+                let pos = arg.indexOf('^')
+                let pos2 = arg.indexOf('/')
+                if(pos2 < pos){
+                  let x = arg.slice(pos2+1, pos)
+                  let y = arg.slice(pos+1,arg.length)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(0,pos2)
+                  let ans = z/res
+                  document.getElementById('disp').value = ans
+                } else {
+                  let x = arg.slice(0,pos)
+                  let y = arg.slice(pos+1,pos2)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(pos2+1,arg.length)
+                  document.getElementById('disp').value = res/z
+                }
+              } else if(arg.includes('+')){ //result of indeces with addition 
+                let pos = arg.indexOf('^')
+                let pos2 = arg.indexOf('+')
+                if(pos2 < pos){
+                  let x = arg.slice(pos2+1, pos)
+                  let y = arg.slice(pos+1,arg.length)
+                  let res = Math.pow(x,y)
+                  let z = +arg.slice(0,pos2)
+                  document.getElementById('disp').value = z+res
+                } else {
+                  let x = arg.slice(0,pos)
+                  let y = arg.slice(pos+1,pos2)
+                  let res = Math.pow(x,y)
+                  let z = +arg.slice(pos2+1,arg.length)
+                  document.getElementById('disp').value = res+z
+                }
+              } else if(arg.includes('-')){ //result of indeces with subtraction
+                let pos = arg.indexOf('^')
+                let pos2 = arg.indexOf('-')
+                if(pos2 < pos){
+                  let x = arg.slice(pos2+1, pos)
+                  let y = arg.slice(pos+1,arg.length)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(0,pos2)
+                  document.getElementById('disp').value = z-res
+              } else {
+                  let x = arg.slice(0,pos)
+                  let y = arg.slice(pos+1,pos2)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(pos2+1,arg.length)
+                  document.getElementById('disp').value = res-z
+                }
+              } else if(arg.includes('*')){ //result of indeces with multiplication
+                let pos = arg.indexOf('^')
+                let pos2 = arg.indexOf('*')
+                if(pos2 < pos){
+                  let x = arg.slice(pos2+1, pos)
+                  let y = arg.slice(pos+1,arg.length)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(0,pos2)
+                  document.getElementById('disp').value = z*res
+                } else {
+                  let x = arg.slice(0,pos)
+                  let y = arg.slice(pos+1,pos2)
+                  let res = Math.pow(x,y)
+                  let z = arg.slice(pos2+1,arg.length)
+                  document.getElementById('disp').value = res*z
+                }
+              } else {
+                  let y = arg.slice(0,arg.indexOf('^')); //base
+                  let z = arg.slice(arg.indexOf('^') + 1, arg.length); //exponent
+                  let res = Math.pow(y,z);
+                  document.getElementById('disp').value = res;
+              }
+            } else if( document.getElementById('disp').value === ''){
+              return null;
+            } else if (arg.includes('cos')) {
+              let num1 = arg.slice(arg.indexOf('cos')+3);
+              let cos = arg.indexOf('cos')
+              if (arg.includes('*')){      //result of cos with *
+                let op = arg.indexOf('*')
+                if(op > cos) {
+                  let num = arg.slice(arg.indexOf('cos')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num * num2;
+                  document.getElementById('disp').value = Math.cos(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.cos(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2*res
+                }
+              }else if(arg.includes('/')){ //result of cos with /
+                let op = arg.indexOf('/') 
+                if(op > cos) {
+                  let num = arg.slice(arg.indexOf('cos')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num / num2;
+                  document.getElementById('disp').value = Math.cos(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.cos(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2/res
+                }
+              } else if(arg.includes('+')){  //result of cos with +
+                let op = arg.indexOf('+') 
+                if(op > cos) {
+                  let num = arg.slice(arg.indexOf('cos')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num + +num2;
+                  document.getElementById('disp').value = Math.cos(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.cos(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 + res
+                }
+              } else if(arg.includes('-')){  //result of cos with -
+                let op = arg.indexOf('-') 
+                if(op > cos) {
+                  let num = arg.slice(arg.indexOf('cos')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num - +num2;
+                  document.getElementById('disp').value = Math.cos(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.cos(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 - res
+                }
+              } else {
+                let y = parseFloat(arg.slice(cos+3, arg.length))
+                if( y === 90){
+                  let res = Math.cos(y*(Math.PI/180))
+                  let ans = Math.round(res)
+                  document.getElementById('disp').value = ans
+                } else {
+                  document.getElementById('disp').value = Math.cos(y*(Math.PI/180));
+
+              }} 
+            }else if (arg.includes('sin')) { //result of sine 
+              let num1 = parseFloat(arg.slice(arg.indexOf('sin')+3));
+              let sin = arg.indexOf('sin')
+              if (arg.includes('*')){ // //result sin of with multiplication
+                let op = arg.indexOf('*')
+                if(op > sin) {
+                  let num = arg.slice(arg.indexOf('sin')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num * num2;
+                  document.getElementById('disp').value = Math.sin(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.sin(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2*res
+                }
+
+              } else if(arg.includes('/')){// sine with division
+                let op = arg.indexOf('/') 
+                if(op > sin) {
+                  let num = arg.slice(arg.indexOf('sin')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num / num2;
+                  document.getElementById('disp').value = Math.sin(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.sin(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 / res
+                }
+
+              } else if(arg.includes('+')){ //sine with addition
+                let op = arg.indexOf('+') 
+                if(op > sin) {
+                  let num = arg.slice(arg.indexOf('sin')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num + +num2;
+                  document.getElementById('disp').value = Math.sin(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.sin(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 + res
+                }
+
+              } else if(arg.includes('-')){ //sine with subtraction
+                let op = arg.indexOf('-') 
+                if(op > sin) {
+                  let num = arg.slice(arg.indexOf('sin')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num - +num2;
+                  document.getElementById('disp').value = Math.sin(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.sin(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 - res
+                }
+              } else {
+                let y = arg.slice(arg.indexOf('sin')+3, arg.length)
+                document.getElementById('disp').value = Math.sin(y*(Math.PI/180));
+              }
+            } else if (arg.includes('tan')) {//tan
+              let num1 = arg.slice(arg.indexOf('tan')+3);
+              let tan = arg.indexOf('tan')
+
+              if (arg.includes('*')){ //tan with mulitplication
+                let op = arg.indexOf('*')
+                if(op > tan) {
+                  let num = arg.slice(arg.indexOf('tan')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num * num2;
+                  document.getElementById('disp').value = Math.tan(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.tan(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2*res
+                }
+
+              } else if(arg.includes('/')){ // tan with division
+                let op = arg.indexOf('/') 
+                  if(op > tan) {
+                  let num = arg.slice(arg.indexOf('tan')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = num / num2;
+                  document.getElementById('disp').value = Math.tan(opRes*(Math.PI/180))
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.tan(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2/res
+                }
+
+              } else if(arg.includes('+')){//tan of addition
+                let op = arg.indexOf('+') 
+                  if(op > tan) {
+                  let num = arg.slice(arg.indexOf('tan')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num + +num2;
+                  document.getElementById('disp').value = Math.tan(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.tan(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 + res
+                }
+              } else if(arg.includes('-')){ //tan of subtraction
+                let op = arg.indexOf('-') 
+                if(op > tan) {
+                  let num = arg.slice(arg.indexOf('tan')+3, op)
+                  let num2 = arg.slice(op+1, arg.length)
+                  let opRes = +num - +num2;
+                  document.getElementById('disp').value = Math.tan(opRes*(Math.PI/180)) 
+                } else {
+                  let num2 = parseFloat(arg.slice(0,op))
+                  let res = Math.tan(num1*(Math.PI/180))
+                  document.getElementById('disp').value = num2 - res
+                }
+              } else {
+                let y = parseFloat(arg.slice(arg.indexOf('tan')+3, arg.length))
+                if(y === 45){
+                  let res = Math.tan(y*(Math.PI/180))
+                  let ans = Math.round(res)
+                  document.getElementById('disp').value = ans
+                } else {
+                  document.getElementById('disp').value = Math.tan(y*(Math.PI/180));
+                }
+              }
+              //exponential operation
+            } else if (arg.includes('exp')) {
+              if( arg.includes("exp") && arg.includes("+")){ //exp with +
+              let pos = arg.indexOf('exp');
+              let pos1 = arg.indexOf("+");
+              if (pos<pos1){
+                let y =(arg.slice(0,pos1)).slice(3);
+                let x =parseFloat(arg.slice(pos1 + 1, arg.length));
+                let res = Math.exp(y);
+                document.getElementById("disp").value = res + x;
+              }
+              else{
+                let y =arg.slice(pos+3);
+                let x =parseFloat(arg.slice( 0, pos1));
+                let res = Math.exp(y);
+                document.getElementById('disp').value = x + res;
+              }}
+
+              else if( arg.includes("exp") && arg.includes("-")){//exp with -
+              let pos = arg.indexOf('exp');
+              let pos1 = arg.indexOf("-");
+              if (pos<pos1){
+                let y =(arg.slice(0,pos1)).slice(3);
+                let x =parseFloat(arg.slice(pos1 + 1, arg.length));
+                let res = Math.exp(y);
+                document.getElementById("disp").value = res - x;
+              }
+              else{
+                let y =arg.slice(pos+3);
+                let x =parseFloat(arg.slice( 0, pos1));
+                let res = Math.exp(y);
+                document.getElementById('disp').value = x - res;
+              }}
+
+              else if( arg.includes("exp") && arg.includes("*")){ //exp with *
+              let pos = arg.indexOf('exp');
+              let pos1 = arg.indexOf("*");
+              if (pos<pos1){
+                let y =(arg.slice(0,pos1)).slice(3);
+                let x =parseFloat(arg.slice(pos1 + 1, arg.length));
+                let res = Math.exp(y);
+                document.getElementById("disp").value = res * x;
+              }
+              else{
+                let y =arg.slice(pos+3);
+                let x =parseFloat(arg.slice( 0, pos1));
+                let res = Math.exp(y);
+                document.getElementById('disp').value = x * res;
+              }}
+
+              else if( arg.includes("exp") && arg.includes("/")){ //exp with /
+              let pos = arg.indexOf('exp');
+              let pos1 = arg.indexOf("/");
+              if (pos<pos1){
+                let y =(arg.slice(0,pos1)).slice(3);
+                let x =parseFloat(arg.slice(pos1 + 1, arg.length));
+                let res = Math.exp(y);
+                document.getElementById("disp").value = res / x;
+              }
+              else{
+                let y =arg.slice(pos+3);
+                let x =parseFloat(arg.slice( 0, pos1));
+                let res = Math.exp(y);
+                document.getElementById('disp').value = x / res;
+              }
+            }
+            else{
+                let y = arg.slice(3);
+                document.getElementById("disp").value = Math.exp(y);}  //exp evaluated alone
+
+             //sqrt operation
+            } else if (arg.includes('√')) {
+              if(arg.includes('√') && arg.includes('+')){//srt operation with add
+                 let pos = arg.indexOf('√');
+                 let pos1 = arg.indexOf('+');
+                 if (pos<pos1){
+                     let y = (arg.slice(0,pos1)).slice(1);
+                     let x = parseFloat((arg.slice(pos1 + 1, arg.length)));
+                     let res = Math.sqrt(y);
+                   document.getElementById('disp').value=(res + x);}
+
+                   else{
+                       let y = arg.slice(pos+1);
+                       let x =parseFloat((arg.slice(0,pos1)));
+                       let res= Math.sqrt(y);
+                       document.getElementById("disp").value =( x + res)
+                   }}
+
+               else if(arg.includes('√') && arg.includes('-')){//sqrt operation with minus sign
+                  let pos = arg.indexOf('√');
+                  let pos1 = arg.indexOf('-');
+                  if (pos<pos1){
+                     let y = (arg.slice(0,pos1)).slice(1);
+                     let x = parseFloat((arg.slice(pos1 + 1, arg.length)));
+                     let res = Math.sqrt(y);
+                   document.getElementById('disp').value=(res - x);}
+
+                   else{
+                       let y = arg.slice(pos+1);
+                       let x =parseFloat((arg.slice(0,pos1)));
+                       let res= Math.sqrt(y);
+                       document.getElementById("disp").value =( x - res)
+                   }}
+
+                else if(arg.includes('√') && arg.includes('*')){//sqrt operation with multiplication sign
+                  let pos = arg.indexOf('√');
+                  let pos1 = arg.indexOf('*');
+                  if (pos<pos1){
+                     let y = (arg.slice(0,pos1)).slice(1);
+                     let x = parseFloat((arg.slice(pos1 + 1, arg.length)));
+                     let res = Math.sqrt(y);
+                   document.getElementById('disp').value=(res * x);}
+
+                   else{
+                       let y = arg.slice(pos+1);
+                       let x =parseFloat((arg.slice(0,pos1)));
+                       let res= Math.sqrt(y);
+                       document.getElementById("disp").value =( x * res)
+                   }}
+
+                else if(arg.includes('√') && arg.includes('/')){//srt operation with division sign
+                  let pos = arg.indexOf('√');
+                  let pos1 = arg.indexOf('/');
+                  if (pos<pos1){
+                     let y = (arg.slice(0,pos1)).slice(1);
+                     let x = parseFloat((arg.slice(pos1 + 1, arg.length)));
+                     let res = Math.sqrt(y);
+                   document.getElementById('disp').value=(res / x);}
+
+                   else{
+                       let y = arg.slice(pos+1);
+                       let x =parseFloat((arg.slice(0,pos1)));
+                       let res= Math.sqrt(y);
+                       document.getElementById("disp").value =( x / res)
+                   }
+        
+              }else{
+                 let y = arg.slice(1);
+                 document.getElementById("disp").value = Math.sqrt(y);}//when srt alone
+
+            } else {
+              let res = eval(document.getElementById('disp').value);
+              document.getElementById('disp').value = res;
+            }
+            document.getElementById('disp').style.backgroundColor = "rgb(48,47,47)";
+            document.getElementById('disp').style.color ="white";
+            if(document.getElementById('disp').value.length > 10){
+              document.getElementById('disp').style.fontSize = '30px';
+            } else {
+              document.getElementById('disp').style.fontSize = '40px'
+            }
+            
+          }
+            eq.addEventListener('click',equal);
+
+            let btns = document.querySelector('.btns')
+            function getInput(event) {
+              let x = event.target.innerText;
+              if(document.getElementById('disp').value === 0 || document.getElementById('disp').value === '0'){
+                document.getElementById('disp').value = x
+              } else {
+              document.getElementById('disp').value += x;
+              }
+              document.getElementById('disp').style.backgroundColor =" rgb(226, 221, 221)";
+              document.getElementById('disp').style.color ="black";
+            }
+            btns.addEventListener('click', getInput)
+
+            let dele = document.querySelector("#del")
+            function del(){
+              let x = document.getElementById('disp').value;
+              let z = (x.length - 1);
+              document.getElementById('disp').value = x.slice(0, z);
+            }
+            dele.addEventListener('click',del)
+            
+            let clr = document.querySelector("#AC")
+            function reset(){
+              let x = document.getElementById('disp').value;
+              x = null;
+              document.getElementById('disp').value = x;
+              document.getElementById('disp').style.fontSize = '40px';
+              document.getElementById('disp').style.backgroundColor =" rgb(226, 221, 221)";
+              document.getElementById('disp').style.color ="black";
+            }
+            clr.addEventListener('click', reset)
+      </script>
+    </body>
+</html>

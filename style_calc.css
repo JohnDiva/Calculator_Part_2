@@ -1,0 +1,82 @@
+.container {
+    width:max-content;
+    border-radius: 37px;
+    border: solid 25px rgb(65, 62, 62);
+}
+
+#disp {
+    font-size:40px;
+    padding: 5px;
+    background-color: rgb(226, 221, 221);
+    border-radius: 10px 10px 0px 0px;
+    border: solid rgb(71, 70, 73);
+    height:70px;
+    width:350px;
+    text-align: end;
+
+
+
+}
+
+.btns {
+    width: 360px;
+    border: solid rgb(92, 86, 104);
+    border-bottom: 0px;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.misc {
+    width: 360px;
+    border: solid rgb(92, 86, 104);
+    border-top: 0px;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+
+button {
+    width: 120px;
+    height: 50px;
+    font-weight: bolder;
+    color:white;
+    background-color: rgb(29, 29, 63);
+    border-radius: 5px;
+    font-size: 30px;
+}
+
+.ops {
+    color:white;
+    font-weight: bolder;
+}
+
+.ops:hover {
+    background-color:rgb(17, 122, 25);
+    color:rgb(243, 220, 9);
+}
+
+
+#AC {
+    background-color: rgb(155, 9, 9);
+}
+
+#eq {
+    background-color: green;
+}
+
+#del {
+    background-color: rgb(223, 67, 10);
+    color:rgb(248, 239, 239);
+}
+
+button:hover {
+    background-color: white;
+    color:black;
+    transition:  500ms linear;
+}
+
+#AC:hover, #equals:hover, #del:hover {
+    background-color:rgb(231, 223, 223);
+    color: rgb(1, 1, 41);
+}
+
