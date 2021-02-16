@@ -472,6 +472,11 @@
             let dele = document.querySelector("#del")
             function del(){
               let x = document.getElementById('disp').value;
+              document.getElementById('disp').style.backgroundColor = " rgb(226, 221, 221)";
+              document.getElementById('disp').style.color = 'black';
+              if(x.length <= 10){
+              document.getElementById('disp').style.fontSize = '40px'
+            }
               let z = (x.length - 1);
               document.getElementById('disp').value = x.slice(0, z);
             }
